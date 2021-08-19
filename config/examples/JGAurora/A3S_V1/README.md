@@ -1,11 +1,15 @@
-# Configuration for JGAurora A5 printer
+# Configuration for JGAurora A3S V1 printer
+The hardware revision (or slight variations) we are calling V1 is the A3S without an external SDCard slot where the electronics are comparable to the A5 (Only the dimensions of the bed and axes differ from the A5).
+- If you have an external SDCard slot, your electronics will instead be comparable to the A5S and you should not use this configuration.
 
 ## Firmware Installation Instructions
 
 To install custom firmware:
 
 - Download and install arduino IDE software from https://www.arduino.cc/en/Main/Software
-- Plug in A5 to your computer via USB cable
+- Plug in A3S V1 to your computer via USB cable
+  - If there is an unknown USB2.0-serial device in device manager (VID_1A86 PID_7523), you'll need a driver. One that worked (tested by Poikilos) is at:
+    http://www.wch.cn/download/ch341ser_zip.html (recommended by [Fix USB2.0-Ser! Driver issue for USB to RS232 Serial Adapter || Windows 8.1 and 10](https://www.youtube.com/watch?v=8dvdZqlSN1U) January 4, 2020 by STechVision).
 - In arduino IDE, under the Tools menu, set:
   – **Board** to "Arduino/Genuino Mega or Mega 2560"
   – ***Processor*** to "Atmega 2560 (Mega 2560)"

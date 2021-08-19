@@ -21,11 +21,11 @@
  */
 #pragma once
 
-#define CONFIG_EXAMPLES_DIR "JGAurora/A5"
+#define CONFIG_EXAMPLES_DIR "JGAurora/A3S_V1"
 
 /**
- * JGAurora A5 configuration
- * Authors: Telli Mantelli, Kris Waclawski, Michael Gilardi & Samuel Pinches
+ * JGAurora A3S V1 configuration
+ * Authors: Jake Gustafson, Telli Mantelli, Kris Waclawski, Michael Gilardi & Samuel Pinches
  */
 
 /**
@@ -76,7 +76,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Telli Mantelli, Kris Waclawski, Samuel Pinches & Michael Gilardi, 21 Jan 2018)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Jake Gustafson, Telli Mantelli, Kris Waclawski, Samuel Pinches & Michael Gilardi, 21 Jan 2018)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -150,7 +150,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "JGAurora A5"
+#define CUSTOM_MACHINE_NAME "JGAurora A3S"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -432,7 +432,7 @@
  *    11 : 100k beta 3950 1% thermistor (Used in Keenovo AC silicone mats and most Wanhao i3 machines) (4.7k pullup)
  *    12 : 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup) (calibrated for Makibox hot bed)
  *    13 : 100k Hisens 3950  1% up to 300°C for hotend "Simple ONE " & "Hotend "All In ONE"
- *    15 : 100k thermistor calibration for JGAurora A5 hotend
+ *    15 : 100k thermistor calibration for JGAurora A5 & A3S V1 hotend
  *    18 : ATC Semitec 204GT-2 (4.7k pullup) Dagoma.Fr - MKS_Base_DKU001327
  *    20 : Pt100 with circuit in the Ultimainboard V2.x with mainboard ADC reference voltage = INA826 amplifier-board supply voltage.
  *         NOTES: (1) Must use an ADC input with no pullup. (2) Some INA826 amplifiers are unreliable at 3.3V so consider using sensor 147, 110, or 21.
@@ -467,7 +467,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 15 // manual calibration of thermistor in JGAurora A5 hotend
+#define TEMP_SENSOR_0 15 // manual calibration of thermistor in JGAurora A5 & A3S V1 hotend
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -561,7 +561,7 @@
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
 
-  // JGAurora A5 (tuned at 210C)
+  // JGAurora A5 & A3S V1 (tuned at 210C)
   #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
     // If fewer than EXTRUDER values are provided, the last element will be repeated.
@@ -612,9 +612,18 @@
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
 
   // JGAurora A5 (tuned at 70C)
-  #define DEFAULT_bedKp 10.00
-  #define DEFAULT_bedKi .023
-  #define DEFAULT_bedKd 305.4
+  // #define DEFAULT_bedKp 10.00
+  // #define DEFAULT_bedKi .023
+  // #define DEFAULT_bedKd 305.4
+  // A3S V1 differs from A5 due to bed size:
+  // JGAurora A3S (tuned at 60C for 10 cycles: M303 EBED S60 C10)
+  // #define DEFAULT_bedKp 27.04
+  // #define DEFAULT_bedKi 2.26
+  // #define DEFAULT_bedKd 80.84
+  // JGAurora A3S (tuned at 70C for 8 cycles: M303 EBED S70 C8)
+  #define DEFAULT_bedKp 60.40
+  #define DEFAULT_bedKi 11.52
+  #define DEFAULT_bedKd 79.16
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -1328,8 +1337,8 @@
 // @section machine
 
 // The size of the printable area
-#define X_BED_SIZE 305
-#define Y_BED_SIZE 305
+#define X_BED_SIZE 205
+#define Y_BED_SIZE 205
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -5 // thanks DaHai.
@@ -1337,7 +1346,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 320
+#define Z_MAX_POS 205
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0
@@ -1546,12 +1555,12 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  #define G26_MESH_VALIDATION
+  //#define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
     #define MESH_TEST_HOTEND_TEMP  205    // (°C) Default nozzle temperature for G26.
-    #define MESH_TEST_BED_TEMP      60    // (°C) Defaultbed temperature for G26.
+    #define MESH_TEST_BED_TEMP      60    // (°C) Default bed temperature for G26.
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
     #define G26_RETRACT_MULTIPLIER   1.0  // G26 Q (retraction) used by default between mesh test elements.
